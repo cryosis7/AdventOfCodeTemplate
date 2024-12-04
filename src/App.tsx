@@ -7,13 +7,13 @@ function App(): JSX.Element {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);
   };
 
   const handleRun = () => {
     const processedOutput = SOLUTIONS[selectedSolution](input);
-    setOutput(processedOutput);
+    setOutput(processedOutput.toString());
   };
 
   const handleSolutionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -22,6 +22,11 @@ function App(): JSX.Element {
 
   return (
     <div className="container">
+      <h1 className="text-center mb-4">
+        <a href="https://adventofcode.com/" target="_blank" rel="noopener noreferrer">
+          Advent of Code Solutions
+        </a>
+      </h1>
       <div className="row justify-content-center">
         <div className="col-md-6">
           <label htmlFor="solutionSelect">Select Solution:</label>
@@ -41,15 +46,15 @@ function App(): JSX.Element {
       </div>
       <div className="row justify-content-center">
         <div className="col-md-6">
-          <label htmlFor="inputField">Input:</label>
+          <label htmlFor="inputElement">Input:</label>
           <input
-            id="inputField"
+            id="inputElement"
             type="text"
             className="form-control mb-3"
             value={input}
-            onChange={handleInputChange}
+            onChange={handleInput}
           />
-          <div className="d-flex justify-content-center"> {/* Center the button */}
+          <div className="d-flex justify-content-center">
             <button onClick={handleRun} className="btn btn-primary">
               Run
             </button>
