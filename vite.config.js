@@ -5,6 +5,13 @@ export default defineConfig({
   plugins: [react()],
   server: {
     port: 3002,
-    hot: true
+    hot: true,
+    proxy: {
+      '/api': {
+        target: 'https://adventofcode.com/2024/',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api/, '')
+      }
+    }
   }
 });
