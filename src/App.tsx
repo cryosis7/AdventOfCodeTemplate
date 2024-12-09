@@ -110,6 +110,7 @@ function App(): JSX.Element {
                         className="form-control mb-3"
                         value={input}
                         onChange={handleInput}
+                        style={{ fontFamily: 'monospace' }}
                     />
                     <div className="d-flex justify-content-center">
                         <button onClick={handleRun} className="btn btn-primary">
