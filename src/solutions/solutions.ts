@@ -1,4 +1,4 @@
-import { day1part1, day1part2 } from "./day1";
+import {day1part1, day1part2} from "./day1";
 
 export type Solution = (input: string) => string | number;
 
