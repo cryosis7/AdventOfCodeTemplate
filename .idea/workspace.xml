@@ -5,12 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="3cd225c7-0e54-4694-86ca-76bce0d6f259" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/eslint.config.mjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/solutions/day4.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/solutions/day3.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/solutions/day4.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/solutions/day4.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/solutions/solutions.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/solutions/solutions.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

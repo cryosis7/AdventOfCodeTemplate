@@ -60,3 +60,22 @@ export const day4part1: Solution = (input) => {
 
   return `Matches: ${Object.values(matches).reduce((acc, curr) => acc + curr, 0)}`;
 };
+
+export const day4part2: Solution = (input) => {
+  const lines = input.split(/\n/);
+
+  let count = 0;
+  for (let i = 1; i < lines.length - 1; i++) {
+    for (let j = 1; j < lines[i].length - 1; j++) {
+      if (lines[i][j] === 'A') {
+        if ((lines[i - 1][j - 1] === 'M' && lines[i + 1][j + 1] === 'S') || (lines[i - 1][j - 1] === 'S' && lines[i + 1][j + 1] === 'M')) {
+          if ((lines[i - 1][j + 1] === 'M' && lines[i + 1][j - 1] === 'S') || (lines[i - 1][j + 1] === 'S' && lines[i + 1][j - 1] === 'M')) {
+            count++;
+          }
+        }
+      }
+    }
+  }
+
+  return `Matches: ${count}`;
+}
