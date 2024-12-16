@@ -107,13 +107,14 @@ function App(): JSX.Element {
             value={input}
             onChange={handleInput}
             style={{ fontFamily: 'monospace' }}
+            rows={8}
           />
           <div className="d-flex justify-content-center">
             <button onClick={handleRun} className="btn btn-primary">
               Run
             </button>
           </div>
-         <p style={{ whiteSpace: 'pre-wrap' }}>{output}</p>
+          <p style={{ whiteSpace: 'pre-wrap' }}>{output}</p>
         </div>
       </div>
     </div>
