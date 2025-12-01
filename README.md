@@ -2,6 +2,12 @@
 
 A web-based solution runner for [Advent of Code](https://adventofcode.com/) puzzles, built with React, TypeScript, and Vite.
 
+<div align="center">
+  <img width="600" height="506" alt="image" src="https://github.com/user-attachments/assets/42e72b14-092d-41ca-9e94-58212aaa5765" />
+</div>
+
+
+
 ## Quick Start
 
 ### Prerequisites
