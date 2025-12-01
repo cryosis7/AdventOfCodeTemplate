@@ -1,4 +1,4 @@
-import { Solution } from '../solutions';
+import { Solution } from '../solutions.js';
 
 export const solution4part1: Solution = (input) => {
   const lines = input.split(/\n/);

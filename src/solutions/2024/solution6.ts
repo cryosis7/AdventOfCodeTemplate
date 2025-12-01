@@ -1,4 +1,4 @@
-import { Solution } from '../solutions';
+import { Solution } from '../solutions.js';
 
 type Direction = 'N' | 'E' | 'S' | 'W';
 

@@ -1,5 +1,5 @@
 import { atomWithStorage } from "jotai/utils";
-import { SOLUTIONS } from "./solutions/solutions";
+import { SOLUTIONS } from "./solutions/solutions.js";
 import { atom } from "jotai";
 
 export const storedInputAtom = atomWithStorage<Record<string, string>>(

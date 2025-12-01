@@ -17,11 +17,12 @@ for (const [path, module] of Object.entries(solutionModules)) {
   const [, year, day] = match;
   if (!SOLUTIONS[year]) SOLUTIONS[year] = {};
   
+  const solutionModule = module as { [key: string]: Solution };
   // Auto-register part1 and part2 if they exist
-  if (module[`solution${day}part1`]) {
-    SOLUTIONS[year][`Solution ${day} - Part 1`] = module[`solution${day}part1`];
+  if (solutionModule[`solution${day}part1`]) {
+    SOLUTIONS[year][`Solution ${day} - Part 1`] = solutionModule[`solution${day}part1`];
   }
-  if (module[`solution${day}part2`]) {
-    SOLUTIONS[year][`Solution ${day} - Part 2`] = module[`solution${day}part2`];
+  if (solutionModule[`solution${day}part2`]) {
+    SOLUTIONS[year][`Solution ${day} - Part 2`] = solutionModule[`solution${day}part2`];
   }
 }

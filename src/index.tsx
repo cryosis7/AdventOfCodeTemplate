@@ -1,6 +1,6 @@
 import { createRoot } from "react-dom/client";
 import React from "react";
-import App from "./App";
+import App from "./App.js";
 import { Provider } from "jotai";
 
 const rootEl = document.getElementById("root");
