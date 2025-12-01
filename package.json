@@ -10,22 +10,22 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/node": "^22.10.1",
-    "@types/react": "^18.3.12",
-    "@types/react-dom": "^18.3.1",
-    "@typescript-eslint/eslint-plugin": "^8.17.0",
-    "@typescript-eslint/parser": "^8.17.0",
-    "@vitejs/plugin-react": "^4.3.4",
-    "eslint-config-prettier": "^9.1.0",
-    "prettier": "^3.4.2",
-    "typescript": "^5.7.2",
-    "vite": "^6.0.2"
+    "@types/node": "^24.10.1",
+    "@types/react": "^19.2.7",
+    "@types/react-dom": "^19.2.3",
+    "@typescript-eslint/eslint-plugin": "^8.48.0",
+    "@typescript-eslint/parser": "^8.48.0",
+    "@vitejs/plugin-react": "^5.1.1",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.7.3",
+    "typescript": "^5.9.3",
+    "vite": "^7.2.6"
   },
   "dependencies": {
-    "bootstrap": "^5.3.3",
-    "jotai": "^2.10.3",
-    "react": "^18.3.1",
-    "react-bootstrap": "^2.10.6",
-    "react-dom": "^18.3.1"
+    "bootstrap": "^5.3.8",
+    "jotai": "^2.15.2",
+    "react": "^19.2.0",
+    "react-bootstrap": "^2.10.10",
+    "react-dom": "^19.2.0"
   }
 }
