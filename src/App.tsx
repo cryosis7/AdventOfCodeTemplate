@@ -2,15 +2,26 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useAtom, useSetAtom } from 'jotai';
 import React, { useEffect, useState } from 'react';
 import { SOLUTIONS } from './solutions/solutions';
-import { inputForSelectedDayAtom, selectedSolutionAtom, sessionAtom, setInputForDayAtom } from './store';
+import { inputForSelectedDayAtom, selectedDayAtom, selectedSolutionAtom, selectedYearAtom, sessionAtom, setInputForDayAtom } from './store';
 
 function App(): JSX.Element {
+  const [selectedYear, setSelectedYear] = useAtom(selectedYearAtom);
   const [selectedSolution, setSelectedSolution] = useAtom(selectedSolutionAtom);
   const [sessionId, setSessionId] = useAtom(sessionAtom);
   const [storedInputForSelectedDay] = useAtom(inputForSelectedDayAtom);
+  const [selectedDay] = useAtom(selectedDayAtom);
   const [input, setInput] = useState(storedInputForSelectedDay);
   const [output, setOutput] = useState('');
   const setInputForDay = useSetAtom(setInputForDayAtom);
+
+  // Initialize selectedSolution if empty or invalid for current year
+  useEffect(() => {
+    const yearSolutions = SOLUTIONS[selectedYear] || {};
+    const solutionKeys = Object.keys(yearSolutions);
+    if (solutionKeys.length > 0 && (!selectedSolution || !yearSolutions[selectedSolution])) {
+      setSelectedSolution(solutionKeys[0]);
+    }
+  }, [selectedYear, selectedSolution, setSelectedSolution]);
 
   useEffect(() => {
     setInput(storedInputForSelectedDay);
@@ -21,8 +32,14 @@ function App(): JSX.Element {
   };
 
   const handleRun = () => {
-    const processedOutput = SOLUTIONS[selectedSolution](input);
-    setOutput(processedOutput.toString());
+    const yearSolutions = SOLUTIONS[selectedYear] || {};
+    const solution = yearSolutions[selectedSolution];
+    if (solution) {
+      const processedOutput = solution(input);
+      setOutput(processedOutput.toString());
+    } else {
+      setOutput('No solution selected for this year');
+    }
   };
 
   const handleSolutionChange = (
@@ -32,18 +49,17 @@ function App(): JSX.Element {
   };
 
   const getInput = async () => {
-    const inferredDay = selectedSolution.match(/Day\s?(\d+)/i)?.[1];
     if (sessionId == '') {
       alert('Retrieve your session ID from the Advent of Code website. You can find it in the cookies');
       return;
     }
 
-    if (inferredDay == null) {
+    if (!selectedDay) {
       return;
     }
 
     document.cookie = `session=${sessionId}`;
-    const request = new Request(`/api/day/${inferredDay}/input`, {
+    const request = new Request(`/api/${selectedYear}/day/${selectedDay}/input`, {
       method: 'GET',
     });
 
@@ -55,14 +71,31 @@ function App(): JSX.Element {
 
     const input = (await response.text()).trim();
     setInput(input);
-    setInputForDay({ day: inferredDay, value: input });
+    setInputForDay({ day: selectedDay, value: input, year: selectedYear });
+  };
+
+  const yearSolutions = SOLUTIONS[selectedYear] || {};
+  const solutionKeys = Object.keys(yearSolutions);
+  const years = Array.from({ length: 11 }, (_, i) => (2015 + i).toString());
+
+  const handleYearChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const newYear = event.target.value;
+    setSelectedYear(newYear);
+    // Reset solution to first available for new year
+    const newYearSolutions = SOLUTIONS[newYear] || {};
+    const newSolutionKeys = Object.keys(newYearSolutions);
+    if (newSolutionKeys.length > 0) {
+      setSelectedSolution(newSolutionKeys[0]);
+    } else {
+      setSelectedSolution('');
+    }
   };
 
   return (
     <div className="container">
       <h1 className="text-center mb-4">
         <a
-          href="https://adventofcode.com/"
+          href={`https://adventofcode.com/${selectedYear}/`}
           target="_blank"
           rel="noopener noreferrer"
         >
@@ -71,18 +104,36 @@ function App(): JSX.Element {
       </h1>
       <div className="row justify-content-center">
         <div className="col-md-6">
+          <label htmlFor="yearSelect">Select Year:</label>
+          <select
+            id="yearSelect"
+            className="form-select mb-3"
+            value={selectedYear}
+            onChange={handleYearChange}
+          >
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
           <label htmlFor="solutionSelect">Select Solution:</label>
           <select
             id="solutionSelect"
             className="form-select mb-3"
             value={selectedSolution}
             onChange={handleSolutionChange}
+            disabled={solutionKeys.length === 0}
           >
-            {Object.keys(SOLUTIONS).map((solutionKey) => (
-              <option key={solutionKey} value={solutionKey}>
-                {solutionKey}
-              </option>
-            ))}
+            {solutionKeys.length === 0 ? (
+              <option>No solutions available for this year</option>
+            ) : (
+              solutionKeys.map((solutionKey) => (
+                <option key={solutionKey} value={solutionKey}>
+                  {solutionKey}
+                </option>
+              ))
+            )}
           </select>
         </div>
       </div>

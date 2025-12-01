@@ -1,20 +1,27 @@
-import {day1part1, day1part2} from "./day1";
-import {day2part1} from "./day2";
-import { day4part1, day4part2 } from './day4';
-import { day5part1, day5part2 } from './day5';
-import { day6part1, day6part2 } from './day6';
-
 export type Solution = (input: string) => string | number;
 
-// Regex hackery in the UI expects the key to be in this format.
-export const SOLUTIONS: { [key: string]: Solution } = {
-    "Day 1 - Part 1": day1part1,
-    "Day 1 - Part 2": day1part2,
-    "Day 2 - Part 1": day2part1,
-    "Day 4 - Part 1": day4part1,
-    "Day 4 - Part 2": day4part2,
-    "Day 5 - Part 1": day5part1,
-    "Day 5 - Part 2": day5part2,
-    "Day 6 - Part 1": day6part1,
-    "Day 6 - Part 2": day6part2,
+// Eagerly import all solution files
+const solutionModules = import.meta.glob<{ [key: string]: Solution }>(
+  './**/solution*.ts',
+  { eager: true }
+);
+
+// Auto-build the SOLUTIONS object
+export const SOLUTIONS: { [year: string]: { [key: string]: Solution } } = {};
+
+for (const [path, module] of Object.entries(solutionModules)) {
+  // path looks like "./2024/solution1.ts"
+  const match = path.match(/\.\/(\d{4})\/solution(\d+)\.ts/);
+  if (!match) continue;
+  
+  const [, year, day] = match;
+  if (!SOLUTIONS[year]) SOLUTIONS[year] = {};
+  
+  // Auto-register part1 and part2 if they exist
+  if (module[`solution${day}part1`]) {
+    SOLUTIONS[year][`Solution ${day} - Part 1`] = module[`solution${day}part1`];
+  }
+  if (module[`solution${day}part2`]) {
+    SOLUTIONS[year][`Solution ${day} - Part 2`] = module[`solution${day}part2`];
+  }
 }

@@ -1,4 +1,4 @@
-import { Solution } from './solutions';
+import { Solution } from '../solutions';
 
 type Direction = 'N' | 'E' | 'S' | 'W';
 
@@ -176,7 +176,7 @@ const addPathSymbol = (map: string[][], location: Location, direction: Direction
   return '.';
 };
 
-export const day6part1: Solution = (input) => {
+export const solution6part1: Solution = (input) => {
   const map: string[][] = input.split('\n').map((line) => line.split(''));
 
   while (getLocation(map) !== null) {
@@ -228,7 +228,7 @@ const hasLoop = (map: string[][], debug: boolean = false): boolean => {
   return isInMap(clonedMap, currentLocation);
 };
 
-export const day6part2: Solution = (input) => {
+export const solution6part2: Solution = (input) => {
   let loopableLocations = 0;
   const map: string[][] = input.split('\n').map((line) => line.split(''));
   console.log('Initial map:', map);
@@ -252,3 +252,4 @@ export const day6part2: Solution = (input) => {
   // const map: string[][] = input.split('\n').map((line) => line.split(''));
   // return hasLoop(map, true) ? 1 : 0;
 };
+

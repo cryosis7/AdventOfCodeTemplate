@@ -1,6 +1,6 @@
-import { Solution } from './solutions';
+import { Solution } from '../solutions';
 
-export const day4part1: Solution = (input) => {
+export const solution4part1: Solution = (input) => {
   const lines = input.split(/\n/);
 
   const matches = {
@@ -61,7 +61,7 @@ export const day4part1: Solution = (input) => {
   return `Matches: ${Object.values(matches).reduce((acc, curr) => acc + curr, 0)}`;
 };
 
-export const day4part2: Solution = (input) => {
+export const solution4part2: Solution = (input) => {
   const lines = input.split(/\n/);
 
   let count = 0;
@@ -79,3 +79,4 @@ export const day4part2: Solution = (input) => {
 
   return `Matches: ${count}`;
 }
+

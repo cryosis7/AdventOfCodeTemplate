@@ -8,7 +8,7 @@ export default defineConfig({
     hot: true,
     proxy: {
       '/api': {
-        target: 'https://adventofcode.com/2024/',
+        target: 'https://adventofcode.com',
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, '')
       }

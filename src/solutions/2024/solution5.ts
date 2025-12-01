@@ -1,6 +1,6 @@
-import { Solution } from './solutions';
+import { Solution } from '../solutions';
 
-export const day5part1: Solution = (input) => {
+export const solution5part1: Solution = (input) => {
   const rules: string[][] = [];
   const pages: string[][] = [];
 
@@ -26,7 +26,7 @@ export const day5part1: Solution = (input) => {
   return correctPages.reduce((acc, page) => acc + Number.parseInt(page[(page.length - 1) / 2]), 0);
 };
 
-export const day5part2: Solution = (input) => {
+export const solution5part2: Solution = (input) => {
   let rules: string[][] = [];
   const pages: string[][] = [];
 
@@ -72,3 +72,4 @@ export const day5part2: Solution = (input) => {
 
   return incorrectPages.reduce((acc, page) => acc + Number.parseInt(page[(page.length - 1) / 2]), 0);
 };
+

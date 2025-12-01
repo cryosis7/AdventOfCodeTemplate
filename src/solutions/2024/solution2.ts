@@ -1,6 +1,6 @@
-import { Solution } from "./solutions";
+import { Solution } from "../solutions";
 
-export const day2part1: Solution = (input) => {
+export const solution2part1: Solution = (input) => {
     const lines = input.split(/\n/);
     
     const safeLines = lines.filter((line, index) => {
@@ -20,3 +20,4 @@ export const day2part1: Solution = (input) => {
     
     return `Safe Reports: ${safeLines.length}`;
 }
+
