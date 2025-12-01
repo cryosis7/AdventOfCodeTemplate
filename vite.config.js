@@ -6,6 +6,7 @@ export default defineConfig({
   server: {
     port: 3002,
     hot: true,
+    open: true,
     proxy: {
       '/api': {
         target: 'https://adventofcode.com',
