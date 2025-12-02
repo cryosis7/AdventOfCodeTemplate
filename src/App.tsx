@@ -14,6 +14,7 @@ function App(): React.ReactNode {
   const [input, setInput] = useState(storedInputForSelectedDay);
   const [output, setOutput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [copySuccess, setCopySuccess] = useState(false);
   const setInputForDay = useSetAtom(setInputForDayAtom);
 
   // Initialize selectedSolution if empty or invalid for current year
@@ -98,6 +99,16 @@ function App(): React.ReactNode {
     }
   };
 
+  const handleCopyOutput = async () => {
+    try {
+      await navigator.clipboard.writeText(output);
+      setCopySuccess(true);
+      setTimeout(() => setCopySuccess(false), 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+    }
+  };
+
   return (
     <div className="container">
       <h1 className="text-center mb-4">
@@ -110,7 +121,7 @@ function App(): React.ReactNode {
         </a>
       </h1>
       <div className="row justify-content-center">
-        <div className="col-md-6">
+        <div className="col-md-8">
           <label htmlFor="yearSelect">Select Year:</label>
           <select
             id="yearSelect"
@@ -145,7 +156,7 @@ function App(): React.ReactNode {
         </div>
       </div>
       <div className="row justify-content-center">
-        <div className="col-md-6">
+        <div className="col-md-8">
           <div className="mb-3">
             <label htmlFor="sessionInput" className="form-label">
               Session ID
@@ -219,14 +230,64 @@ function App(): React.ReactNode {
             value={input}
             onChange={handleInput}
             style={{ fontFamily: 'monospace' }}
-            rows={8}
+            rows={4}
           />
           <div className="d-flex justify-content-center">
             <button onClick={handleRun} className="btn btn-primary">
               Run
             </button>
           </div>
-          <p style={{ whiteSpace: 'pre-wrap' }}>{output}</p>
+          {output && (
+            <div className="mt-3">
+              <div className="d-flex justify-content-between align-items-center mb-2">
+                <label className="mb-0">Output:</label>
+                <button
+                  onClick={handleCopyOutput}
+                  className="btn btn-sm btn-outline-secondary"
+                  title="Copy output to clipboard"
+                >
+                  {copySuccess ? (
+                    <>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                        style={{ marginRight: '4px' }}
+                      >
+                        <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                      </svg>
+                      Copied!
+                    </>
+                  ) : (
+                    <>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        viewBox="0 0 16 16"
+                        style={{ marginRight: '4px' }}
+                      >
+                        <path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/>
+                        <path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/>
+                      </svg>
+                      Copy
+                    </>
+                  )}
+                </button>
+              </div>
+              <p style={{ 
+                whiteSpace: 'pre-wrap', 
+                border: '1px solid #dee2e6', 
+                borderRadius: '4px', 
+                padding: '12px',
+                backgroundColor: '#f8f9fa',
+                fontFamily: 'monospace'
+              }}>{output}</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
