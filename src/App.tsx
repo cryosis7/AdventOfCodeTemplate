@@ -17,14 +17,22 @@ function App(): React.ReactNode {
   const [copySuccess, setCopySuccess] = useState(false);
   const setInputForDay = useSetAtom(setInputForDayAtom);
 
-  // Initialize selectedSolution if empty or invalid for current year
+  const [hasHydrated, setHasHydrated] = useState(false);
+
   useEffect(() => {
+    const timer = setTimeout(() => setHasHydrated(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (!hasHydrated) return;
+
     const yearSolutions = SOLUTIONS[selectedYear] || {};
     const solutionKeys = Object.keys(yearSolutions);
     if (solutionKeys.length > 0 && (!selectedSolution || !yearSolutions[selectedSolution])) {
       setSelectedSolution(solutionKeys[0]);
     }
-  }, [selectedYear, selectedSolution, setSelectedSolution]);
+  }, [hasHydrated, selectedYear, selectedSolution, setSelectedSolution]);
 
   useEffect(() => {
     setInput(storedInputForSelectedDay);
